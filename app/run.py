@@ -1,5 +1,7 @@
 import os
 from flask import Flask, redirect, url_for, render_template
+import sqlite3
+import models
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -10,10 +12,26 @@ app.config.update(dict(
 ))
 
 
-# 以下、DB接続関連の関数
+def connect_db():
+    """ データベス接続に接続します """
+    con = sqlite3.connect(app.config['DATABASE'])
+    con.row_factory = sqlite3.Row
+    return con
 
 
-# 以下、画面/機能毎の関数
+def get_db():
+    """ connectionを取得します """
+    if not hasattr(g, 'sqlite_db'):
+        g.sqlite_db = connect_db()
+    return g.sqlite_db
+
+
+@app.teardown_appcontext
+def close_db(error):
+    """ db接続をcloseします """
+    if hasattr(g, 'sqlite_db'):
+        g.sqlite_db.close()
+
 
 @app.route('/')
 def index():
@@ -40,15 +58,25 @@ def edit_ja():
 
 
 @app.route('/create', methods=['POST'])
-def create():
+def create(request):
     """ 新規作成処理 """
-    return redirect(url_for('view', pk=0))
+    if not request.form['title'] or not request.form['description']:
+        return redirect(url_for('create'))
+
+    pk = models.insert(get_db(), request.form['title'], request.form['title_ja'], request.form['description'],
+                       request.form['description_ja'], request.form['author'])
+    return redirect(url_for('view', pk=pk))
 
 
-@app.route('/create', methods=['POST'])
-def create_ja():
+@app.route('/ja/create', methods=['POST'])
+def create_ja(request):
     """ 新規作成処理 """
-    return redirect(url_for('view', pk=0))
+    if not request.form['title_ja'] or not request.form['description_ja']:
+        return redirect(url_for('ja/create'))
+
+    pk = models.insert(get_db(), request.form['title'], request.form['title_ja'], request.form['description'],
+                       request.form['description_ja'], request.form['author'])
+    return redirect(url_for('ja/view', pk=pk))
 
 @app.route('/view/<id>')
 def view(id):
