@@ -1,11 +1,10 @@
 import os
-from flask import Flask, redirect, url_for, render_template, request
+from flask import Flask, redirect, url_for, render_template, request, g
 import sqlite3
 import models
 
 app = Flask(__name__)
 app.config.from_object(__name__)
-g = None
 
 app.config.update(dict(
     DATABASE=os.path.join(app.root_path, 'db.sqlite3'),
@@ -14,7 +13,7 @@ app.config.update(dict(
 
 
 def connect_db():
-    """ データベス接続に接続します """
+    """ データベースに接続します """
     con = sqlite3.connect(app.config['DATABASE'])
     con.row_factory = sqlite3.Row
     return con
@@ -61,23 +60,18 @@ def edit_ja():
 @app.route('/create', methods=['POST'])
 def create():
     """ 新規作成処理 """
-    if not request.form['title'] or not request.form['description']:
-        return redirect(url_for('create'))
-
-    pk = models.insert(get_db(), request.form['title'], request.form['title_ja'], request.form['description'],
+    id = models.insert(get_db(), request.form['title'], request.form['title_ja'], request.form['description'],
                        request.form['description_ja'], request.form['author'])
-    return redirect(url_for('view', pk=pk))
+    return redirect(url_for('view', id=id))
 
 
 @app.route('/ja/create', methods=['POST'])
 def create_ja():
     """ 新規作成処理 """
-    if not request.form['title_ja'] or not request.form['description_ja']:
-        return redirect(url_for('ja/create'))
-
-    pk = models.insert(get_db(), request.form['title'], request.form['title_ja'], request.form['description'],
+    id = models.insert(get_db(), request.form['title'], request.form['title_ja'], request.form['description'],
                        request.form['description_ja'], request.form['author'])
-    return redirect(url_for('ja/view', pk=pk))
+    return redirect(url_for('ja/view', id=id))
+
 
 @app.route('/view/<id>')
 def view(id):
@@ -94,13 +88,13 @@ def view_ja(id):
 @app.route('/random')
 def random():
     """ ランダム参照処理 """
-    return redirect(url_for('view', pk=0))
+    return redirect(url_for('view', id=0))
 
 
 @app.route('/ja/random')
 def random_ja():
     """ ランダム参照処理 """
-    return redirect(url_for('view', pk=0))
+    return redirect(url_for('view', id=0))
 
 
 if __name__ == '__main__':

@@ -5,7 +5,7 @@ def insert(con, title, title_ja, description, description_ja, author):
         'insert into suggestions (title_en, title_ja, description_en, description_ja, author) values (?, ?, ?, ?, ?)',
         [title, title_ja, description, description_ja, author])
 
-    pk = cur.lastrowid
+    id = cur.lastrowid
     con.commit()
 
-    return pk
+    return id
