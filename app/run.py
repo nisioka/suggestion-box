@@ -1,10 +1,11 @@
 import os
-from flask import Flask, redirect, url_for, render_template
+from flask import Flask, redirect, url_for, render_template, request
 import sqlite3
 import models
 
 app = Flask(__name__)
 app.config.from_object(__name__)
+g = None
 
 app.config.update(dict(
     DATABASE=os.path.join(app.root_path, 'db.sqlite3'),
@@ -58,7 +59,7 @@ def edit_ja():
 
 
 @app.route('/create', methods=['POST'])
-def create(request):
+def create():
     """ 新規作成処理 """
     if not request.form['title'] or not request.form['description']:
         return redirect(url_for('create'))
@@ -69,7 +70,7 @@ def create(request):
 
 
 @app.route('/ja/create', methods=['POST'])
-def create_ja(request):
+def create_ja():
     """ 新規作成処理 """
     if not request.form['title_ja'] or not request.form['description_ja']:
         return redirect(url_for('ja/create'))
