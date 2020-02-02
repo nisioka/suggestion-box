@@ -2,17 +2,24 @@
 {% block body %}
 <h1>Suggestion</h1>
 
-<h3>{{ result.title_en|safe}}</h3>
-<h4>{{ result.title_ja|safe}}</h4>
+<h3>title: {{ result.title_en|safe}}</h3>
+<h4>in japanese:{{ result.title_ja|safe}}</h4>
 
 <div class="row">
-    <textarea class="form-control" name="data" rows="5">{{result.description_en}}</textarea>
+    <label>
+        description:
+        <textarea class="form-control" name="data" rows="5">{{result.description_en}}</textarea>
+    </label>
+
 </div>
 <div class="row">
-    <textarea class="form-control" name="data" rows="5">{{result.description_ja}}</textarea>
+    <label>
+        in japanese:
+        <textarea class="form-control" name="data" rows="5">{{result.description_ja}}</textarea>
+    </label>
 </div>
-<p>{{ result.author }}</p>
-<p>{{ result.created }}</p>
+<p>author: {{ result.author }}</p>
+<p>created date: {{ result.created }}</p>
 
 <br><br>
 {% endblock %}

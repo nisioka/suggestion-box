@@ -26,8 +26,8 @@ def select(con, id):
 def select_all_en(con):
     """ SELECTする """
     cur = con.execute(
-        'select id, case when title_en is not NULL then title_en else title_ja end as title,'
-        'substr(case when description_en is not NULL then description_en else description_ja end, 1, 25) || "..." as description,'
+        'select id, case when length(title_en) > 0 then title_en else title_ja end as title,'
+        'substr(case when length(description_en) > 0 then description_en else description_ja end, 1, 25) || "..." as description,'
         'author, created from suggestions order by created desc')
     return cur.fetchall()
 
@@ -35,7 +35,7 @@ def select_all_en(con):
 def select_all_ja(con):
     """ SELECTする """
     cur = con.execute(
-        'select id, case when title_ja is not NULL then title_ja else title_en end as title,'
-        'substr(case when description_ja is not NULL then description_ja else description_en end, 1, 25) || "..." as description,'
+        'select id, case when length(title_ja) > 0 then title_ja else title_en end as title,'
+        'substr(case when length(description_ja) > 0 then description_ja else description_en end, 1, 25) || "..." as description,'
         'author, created from suggestions order by created desc')
     return cur.fetchall()

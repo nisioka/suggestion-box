@@ -2,17 +2,23 @@
 {% block body %}
 <h1>提案</h1>
 
-<h3>{{ result.title_ja|safe}}</h3>
-<h4>{{ result.title_en|safe}}</h4>
+<h3>タイトル：{{ result.title_ja|safe}}</h3>
+<h4>英語版：{{ result.title_en|safe}}</h4>
 
 <div class="row">
-    <textarea class="form-control" name="data" rows="5">{{result.description_ja}}</textarea>
+    <label>
+        説明：
+        <textarea class="form-control" name="data" rows="5">{{result.description_ja}}</textarea>
+    </label>
 </div>
 <div class="row">
-    <textarea class="form-control" name="data" rows="5">{{result.description_en}}</textarea>
+    <label>
+        英語版：
+        <textarea class="form-control" name="data" rows="5">{{result.description_en}}</textarea>
+    </label>
 </div>
-<p>{{ result.author }}</p>
-<p>{{ result.created }}</p>
+<p>著者：{{ result.author }}</p>
+<p>作成日：{{ result.created }}</p>
 
 <br><br>
 {% endblock %}
