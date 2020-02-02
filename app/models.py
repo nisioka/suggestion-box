@@ -1,3 +1,7 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+
 def insert(con, title, title_ja, description, description_ja, author):
     """ INSERT処理 """
     cur = con.cursor()

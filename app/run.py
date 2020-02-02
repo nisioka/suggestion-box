@@ -1,3 +1,7 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+
 import os
 from flask import Flask, redirect, url_for, render_template, request, g, flash
 import sqlite3
