@@ -1,5 +1,5 @@
 import os
-from flask import Flask, redirect, url_for, render_template, request, g
+from flask import Flask, redirect, url_for, render_template, request, g, flash
 import sqlite3
 import models
 
@@ -36,13 +36,17 @@ def close_db(error):
 @app.route('/')
 def index():
     """ 一覧画面 """
-    return render_template('index.html', results={})
+    con = get_db()
+    results = models.select_all(con)
+    return render_template('index.html', results=results)
 
 
 @app.route('/ja')
 def index_ja():
     """ 一覧画面 """
-    return render_template('index_ja.html', results={})
+    con = get_db()
+    results = models.select_all(con)
+    return render_template('index_ja.html', results=results)
 
 
 @app.route('/create', methods=['GET'])
@@ -62,6 +66,7 @@ def create():
     """ 新規作成処理 """
     id = models.insert(get_db(), request.form['title'], request.form['title_ja'], request.form['description'],
                        request.form['description_ja'], request.form['author'])
+    flash('The suggestion created.')
     return redirect(url_for('view', id=id))
 
 
@@ -70,19 +75,24 @@ def create_ja():
     """ 新規作成処理 """
     id = models.insert(get_db(), request.form['title'], request.form['title_ja'], request.form['description'],
                        request.form['description_ja'], request.form['author'])
+    flash('登録完了しました。')
     return redirect(url_for('ja/view', id=id))
 
 
 @app.route('/view/<id>')
 def view(id):
     """ 参照画面 """
-    return render_template('view.html', result={})
+    con = get_db()
+    result = models.select(con, id)
+    return render_template('view.html', result=result)
 
 
 @app.route('/ja/view/<id>')
 def view_ja(id):
     """ 参照画面 """
-    return render_template('view_ja.html', result={})
+    con = get_db()
+    result = models.select(con, id)
+    return render_template('view_ja.html', result=result)
 
 
 @app.route('/random')

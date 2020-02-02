@@ -10,14 +10,22 @@
         <th>date</th>
         <th>author</th>
     </tr>
+    {% for result in results %}
     <tr>
-        <td>0</td>
-        <td><a href="/view/0">sample title</a></td>
-        <td>sample desctiption</td>
-        <td>2020/01/01 12:00</td>
-        <td>nishioka</td>
+        <td>
+            <a href="/view/{{ result.id }}">
+                <button class="btn btn-primary">View</button>
+            </a>
+        </td>
+        <td>{{ result.id }}</td>
+        <td>{{ result.title|safe}}</td>
+        <td>{{ result.description|safe}}</td>
+        <td>{{ result.created }}</td>
+        <td>{{ result.author|safe }}</td>
     </tr>
+    {% endfor %}
 
+</table>
 </table>
 
 {% endblock %}

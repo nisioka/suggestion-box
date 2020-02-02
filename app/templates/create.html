@@ -13,7 +13,8 @@
     <textarea class="form-control" name="description_ja" rows="5"></textarea>
     <label>author(not required)</label>
     <input class="form-control" type="text" size="30" name="author">
-    <input class="btn btn-primary" type="submit" value="Send">
+    <input class="btn btn-primary" type="submit" value="Send"
+           onclick='return confirm("Once created, this cannot be updated or deleted.\nDo you want to create?")'>
 
 </form>
 {% endblock %}
