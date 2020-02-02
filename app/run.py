@@ -37,7 +37,7 @@ def close_db(error):
 def index():
     """ 一覧画面 """
     con = get_db()
-    results = models.select_all(con)
+    results = models.select_all_en(con)
     return render_template('index.html', results=results)
 
 
@@ -45,7 +45,7 @@ def index():
 def index_ja():
     """ 一覧画面 """
     con = get_db()
-    results = models.select_all(con)
+    results = models.select_all_ja(con)
     return render_template('index_ja.html', results=results)
 
 

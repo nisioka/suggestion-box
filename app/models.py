@@ -26,3 +26,12 @@ def select_all_en(con):
         'substr(case when description_en is not NULL then description_en else description_ja end, 1, 25) || "..." as description,'
         'author, created from suggestions order by created desc')
     return cur.fetchall()
+
+
+def select_all_ja(con):
+    """ SELECTする """
+    cur = con.execute(
+        'select id, case when title_ja is not NULL then title_ja else title_en end as title,'
+        'substr(case when description_ja is not NULL then description_ja else description_en end, 1, 25) || "..." as description,'
+        'author, created from suggestions order by created desc')
+    return cur.fetchall()
