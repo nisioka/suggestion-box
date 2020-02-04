@@ -5,6 +5,7 @@
 ### required
 
 python3
+raspberry pi
 
 ## SQLite3 setup
 ```
@@ -24,8 +25,8 @@ python app/run.py &
 
 ## ngrok
 ```
-wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-386.zip
-unzip ngrok-stable-linux-386.zip
+wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip
+unzip ngrok-stable-linux-arm.zip
 ./ngrok authtoken XXXXX(authentication code)
 ./ngrok http -log=stdout 5000 &
 ```
