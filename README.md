@@ -27,5 +27,5 @@ python app/run.py &
 wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-386.zip
 unzip ngrok-stable-linux-386.zip
 ./ngrok authtoken XXXXX(authentication code)
-./ngrok http -log=stdout 5000
+./ngrok http -log=stdout 5000 &
 ```
