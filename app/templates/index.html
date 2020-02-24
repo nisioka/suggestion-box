@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block body %}
+<span>Languages: <a href="/">English</a> / <a href="/ja">日本語</a> </span>
+<h1>Index of Suggestions</h1>
+<a href="/create">Create suggestion</a>
+<table class="table table-striped table-hover">
+    <tr>
+        <th>#</th>
+        <th>id</th>
+        <th>title</th>
+        <th>description</th>
+        <th>date</th>
+        <th>author</th>
+    </tr>
+    {% for result in results %}
+    <tr>
+        <td>
+            <a href="/view/{{ result.id }}">
+                <button class="btn btn-primary">View</button>
+            </a>
+        </td>
+        <td>{{ result.id }}</td>
+        <td>{{ result.title|safe}}</td>
+        <td>{{ result.description|safe}}</td>
+        <td>{{ result.created }}</td>
+        <td>{{ result.author|safe }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}

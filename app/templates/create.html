@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block body %}
+<h1>Create suggestion</h1>
+<strong class="text-danger">WARNING! Do not write confidential information.</strong>
+<form action="{{ url_for('create') }}" method="post">
+
+    <label>title(required)</label>
+    <input class="form-control" type="text" size="30" name="title" required>
+    <label>title in Japanese(not required. Translate if you possible.)</label>
+    <input class="form-control" type="text" size="30" name="title_ja">
+    <label>description(required)</label>
+    <textarea class="form-control" name="description" rows="5" required></textarea>
+    <label>description in Japanese(not required. Translate if you possible.)</label>
+    <textarea class="form-control" name="description_ja" rows="5"></textarea>
+    <label>author(not required)</label>
+    <input class="form-control" type="text" size="30" name="author">
+    <input class="btn btn-primary" type="submit" value="Send"
+           onclick='return confirm("Once created, this cannot be updated or deleted.\nDo you want to create?")'>
+
+</form>
+
+<br><br>
+<a href="/">back</a>
+{% endblock %}

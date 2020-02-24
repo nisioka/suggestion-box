@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block body %}
+<h1>新規作成</h1>
+<strong class="text-danger">※ 秘匿情報は書き込まないでください。</strong>
+<form action="{{ url_for('create') }}" method="post">
+
+    <label>タイトル(必須)</label>
+    <input class="form-control" type="text" size="30" name="title_ja" required>
+    <label>英語タイトル(任意。可能ならば翻訳版も記載してください。)</label>
+    <input class="form-control" type="text" size="30" name="title">
+    <label>説明(必須)</label>
+    <textarea class="form-control" name="description_ja" rows="5" required></textarea>
+    <label>英語版説明(任意。可能ならば翻訳版も記載してください。)</label>
+    <textarea class="form-control" name="description" rows="5"></textarea>
+    <label>著者(任意)</label>
+    <input class="form-control" type="text" size="30" name="author">
+    <input class="btn btn-primary" type="submit" value="送信"
+           onclick='return confirm("一度作成すると更新も削除もできません。\n作成してもよろしいですか？")'>
+
+</form>
+
+<br><br>
+<a href="/ja">戻る</a>
+{% endblock %}
